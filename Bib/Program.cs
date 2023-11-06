@@ -35,7 +35,7 @@ namespace Bib
                 switch (input) 
                 {
                     case "1":
-                        ToonMaterialen(titel);
+                        ToonMaterialen(boekTitels, boekAuteurs);
                         break;
                     case "2":
                         VoegMateriaalToe(titel, auteur, isBoek);
@@ -82,22 +82,33 @@ namespace Bib
             /*string auteur;*/
             string[] boekTitels = new string[3];
             Console.WriteLine("Enter the title: ");
+
+            //para agregar un lugar en el array que reciba el nuevo elemento:
+            Array.Resize(ref boekTitels, boekTitels.Length + 1);
+
             titel = Console.ReadLine();
-            int i;
+
+            //Ubica la nueva entrada en el nuevo espacio creado en el array:
+            boekTitels[boekTitels.Length - 1] = titel;
+            /*int i;
 
             for (i = 0; i < boekTitels.Length; i++)
             {
                 boekTitels[i] = titel;
-            }
+            }*/
 
             string[] boekAuteurs = new string[3];
             Console.WriteLine("Enter the author: ");
+            Array.Resize(ref boekAuteurs, boekAuteurs.Length + 1);
             auteur = Console.ReadLine();
-            for (i = 0; i < boekAuteurs.Length; i++)
+            boekAuteurs[boekAuteurs.Length - 1] = auteur;
+
+
+            /*for (i = 0; i < boekAuteurs.Length; i++)
             {
                 boekAuteurs[i] = titel;
                 Console.WriteLine($"New entry: {boekTitels[i]} - {boekAuteurs[i]}");
-            }
+            }*/
         }
         static void PopulateArrayTijdschrijft(string titel)
         {
@@ -109,17 +120,17 @@ namespace Bib
                 tijdschrijftNamen[i] = titel;
             }
         }
-        static void ToonMaterialen(string titel)
+        static void ToonMaterialen(string[] boekTitels, string[] boekAuteurs)
         {
-            string[] boekTitels = new string[3];
-            string[] boekAuteurs = new string[3];
+            /*string[] boekTitels = new string[3];
+            string[] boekAuteurs = new string[3];*/
             int choiceMat = 0;
             Console.WriteLine("Choose between: 1 => Book or  2 => Revue");
             choiceMat = Int32.Parse(Console.ReadLine());
 
             for (int i = 0; i < boekTitels.Length; i++)
             {
-                Console.WriteLine($"Book id: {i} '\n' Title: {boekTitels[i]} '\n' Author: {boekTitels[i]}");
+                Console.WriteLine($"Book id: {i + 1} '\n' Title: {boekTitels[i]} '\n' Author: {boekAuteurs[i]}");
             }
         }
         static void VerwijderMateriaal(string titel)
@@ -134,6 +145,6 @@ namespace Bib
         {
 
         }
-        /*Console.WriteLine("Enter the book name");*/
+        
     }
 }
