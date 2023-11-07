@@ -9,13 +9,13 @@ namespace Bib
 {
     internal class Program
     {
+        string[] boekTitels = new string[3];
+        string[] boekAuteurs = new string[3];
+        string[] tijdschrijftNamen = new string[2];
+        string[] gebruikers = new string[4];
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
-            string[] boekTitels = new string[3];
-            string[] boekAuteurs = new string[3];
-            string[] tijdschrijftNamen = new string[2];
-            string[] gebruikers = new string[4];
             /*int choiceMat = 0;*/
             string input;
             string titel = null;
