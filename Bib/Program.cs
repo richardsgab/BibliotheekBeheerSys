@@ -16,13 +16,13 @@ namespace Bib
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
-            /*int choiceMat = 0;*/
+            
             string input;
             string title = null;
-            string author = null;
-            /*bool isBook = false;*/
+            string author = null;           
             string name = null;
             string zoekterm = null;
+                       
 
             Console.WriteLine("BIBLIOTHEEK"); //Menu title
 
@@ -35,7 +35,7 @@ namespace Bib
                 switch (input) 
                 {
                     case "1":
-                        ShowMaterials(bookTitles, bookAuthors);
+                        ShowMaterials(bookTitles, bookAuthors, magsNames);
                         break;
                     case "2":
                         AddMaterial(title, author);
@@ -50,11 +50,13 @@ namespace Bib
                         RegistreerGebruiker(name);
                         break;
                 }
+                Console.WriteLine("Press any key to return to the main menu.");
+                Console.ReadKey();
                 Console.Clear();
             }
             
         }
-        static void ShowMenu() // Shows the Main Menu
+        public static void ShowMenu() // Shows the Main Menu
         {
             Console.WriteLine("1. Show all books and mags");
             Console.WriteLine("2. Add new material");
@@ -62,82 +64,65 @@ namespace Bib
             Console.WriteLine("4. Search for a book or a mag");
             Console.WriteLine("5. New user register");
         }
-        static void AddMaterial(string title, string author)//Add material
+        public static void AddMaterial(string title, string author)//Add material
         {
-            int choiceMat = 0;
-            Console.WriteLine("1 - Book");
-            Console.WriteLine("2 - Revue");
-            choiceMat = Int32.Parse(Console.ReadLine());
+            
+            Console.WriteLine("1 - Book  ");
+            Console.WriteLine("2 - Revue  ");
+            int choiceMat = Int32.Parse(Console.ReadLine());
+
+            string[] bookTitles = { "Book1", "Book2" };
+            string[] bookAuthors = { "Author1", "Author2" };
+            string[] magsNames = { "Mag1", "Mag2" };
 
             if (choiceMat == 1)
-            {
-                
+            {                
                 Console.WriteLine("Enter the title: ");
-
-                //To add a new place in the array to fill it:
-                Array.Resize(ref bookTitles, bookTitles.Length + 1);
                 title = Console.ReadLine();
 
+                //Add a new place at the end of the array to fill it:
+                Array.Resize(ref bookTitles, bookTitles.Length + 1);
                 //Puts the new entry in the new place created:
                 bookTitles[bookTitles.Length - 1] = title;
-                /*int i;*/
-
-               /* for (i = 0; i < bookTitles.Length; i++)
-                {
-                    bookTitles[i] = title;
-                }*/
-
-                string[] bookAuthors = new string[3];
+                
                 Console.WriteLine("Enter the author: ");
-                Array.Resize(ref bookAuthors, bookAuthors.Length + 1);
                 author = Console.ReadLine();
+                Array.Resize(ref bookAuthors, bookAuthors.Length + 1);
                 bookAuthors[bookAuthors.Length - 1] = author;
-
+                
             }
             else if (choiceMat == 2)
-            {
-                /*isBook = false;
-                PopulateArrayTijdschrijft(title) ;*/
-                string[] magsNames = new string[2];
+            {               
                 Console.WriteLine("Enter the title: ");
                 title = Console.ReadLine();
-
-                int i;
-                for (i = 0; i < magsNames.Length; i++)
-                {
-                    magsNames[i] = title;
-                }
-
-
-                
-                /*int i ;*/
-
-                for (i = 0; i < bookAuthors.Length; i++)
-                {
-                    bookAuthors[i] = title;
-                    Console.WriteLine($"New entry: {bookTitles[i]} - {bookAuthors[i]}");
-                }
-
-            }
-            
+                Array.Resize(ref magsNames, magsNames.Length + 1);
+                magsNames[magsNames.Length - 1] = title;          
+            }        
             
         }
        
-        static void ShowMaterials(string[] bookTitles, string[] boekAuthors) //Show all books and mags
-        {            
-            int choiceMat = 0;
+        public static void ShowMaterials(string[] bookTitles, string[] boekAuthors, string[] magsNames) //Show all books and mags
+        {     
+           
             Console.WriteLine("1 - Book");
             Console.WriteLine("2 - Revue");
-            choiceMat = Int32.Parse(Console.ReadLine());
+            int choiceMat = Int32.Parse(Console.ReadLine());
 
             if (choiceMat == 1) 
             {
                 for (int i = 0; i < bookTitles.Length; i++)
                 {
-                    Console.WriteLine($"Book id: {i + 1} '\n' Title: {bookTitles[i]} '\n' Author: {boekAuthors[i]}");
+                    Console.WriteLine($"Book id: {i + 1} \n Title: {bookTitles[i]} \n Author: {boekAuthors[i]}");
                 }                
             }
 
+            if (choiceMat == 2)
+            {
+                for (int i = 0; i < magsNames.Length; i++)
+                {
+                    Console.WriteLine($"Mag id: {i + 1} \n Title: {magsNames[i]}");
+                }
+            }
 
         }
         static void DeleteMaterial(string title)
