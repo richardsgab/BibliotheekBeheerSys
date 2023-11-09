@@ -16,17 +16,19 @@ namespace TestExtras
         {
             Console.WriteLine("Enter title to lean: ");
             string matToBorrow = Console.ReadLine();
-            //Call the CheckIsLoaned method
+            
             CheckIsLoaned(matToBorrow);
             BorrowABook(testBooks, matToBorrow);
         }
-        static void CheckIsLoaned(string title)
-        {           
+        static void CheckIsLoaned(string matToBorrow)
+        {                     
             for (int i = 0; i < testBooks.Length; i++)
             {
+                testBooks[i] = matToBorrow;
                 if (matToBorrow != testBooks[i])
                 {
-                    Console.WriteLine($"{matToBorrow} is Loaned");
+                    Console.WriteLine($"{matToBorrow} is Borrowed");
+                    break;
                 }
                 else if (matToBorrow == testBooks[i])
                 {
@@ -40,18 +42,23 @@ namespace TestExtras
                 }
             }
         }
-        static void BorrowABook(string[] testBooks, string title) 
+        static void BorrowABook(string[] testBooks, string matToBorrow) 
         {
             Console.WriteLine("Enter your User Name: ");
-            userName = Console.ReadLine();
+            string userName = Console.ReadLine();
 
             for (int i = 0; i < testBooks.Length; i++)
             {
-                if (title == testBooks[i])
+                if (matToBorrow == testBooks[i])
                 {
                     testBooks[i] = "333";
+                    break;
                 }
             }
+            Console.WriteLine($"User {userName}, yo have borrowed {matToBorrow}");
+            
+            Console.ReadKey();
+            Console.Clear();
         }
     }
 }
