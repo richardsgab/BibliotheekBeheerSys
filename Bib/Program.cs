@@ -31,28 +31,48 @@ namespace Bib
                 ShowMenu();
                 input = Console.ReadLine();
 
-
-                switch (input)
+                if(input == "1")
                 {
-                    case "1":
-                        ShowMaterials(bookTitles, bookAuthors, magsNames);
-                        break;
-                    case "2":
-                        AddMaterial(title, author);
-                        break;
-                    case "3":
-                        DeleteMaterial(ref bookTitles, ref magsNames, title);
-                        break;
-                    case "4":
-                        SearchMaterial(bookTitles, bookAuthors, magsNames, searchItem);
-                        break;
-                    case "5":
-                        UserRegister(name);
-                        break;
+                    ShowMaterials(bookTitles, bookAuthors, magsNames);
+                    Console.WriteLine("Press any key to return to the main menu.");
+                    Console.ReadKey();
+                    Console.Clear();
                 }
-                Console.WriteLine("Press any key to return to the main menu.");
-                Console.ReadKey();
-                Console.Clear();
+                else if (input == "2")
+                {
+                    AddMaterial(title, author);
+                    Console.WriteLine("Press any key to return to the main menu.");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+                else if (input == "3")
+                {
+                    DeleteMaterial(ref bookTitles, ref magsNames, title);
+                    Console.WriteLine("Press any key to return to the main menu.");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+                else if (input == "4")
+                {
+                    SearchMaterial(bookTitles, bookAuthors, magsNames, searchItem);
+                    Console.WriteLine("Press any key to return to the main menu.");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+                else if (input == "5")
+                {
+                    UserRegister(name);
+                    Console.WriteLine("Press any key to return to the main menu.");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+                else
+                {
+                    Console.WriteLine("Not a valid choice");
+                    Console.WriteLine("Press any key to return to the main menu.");
+                    Console.ReadKey();
+                    Console.Clear();
+                }                
             }
 
         }
