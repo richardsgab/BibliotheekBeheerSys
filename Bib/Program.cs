@@ -9,131 +9,238 @@ namespace Bib
 {
     internal class Program
     {
+        static void Main(string[] args)
+        {
+            Console.OutputEncoding = Encoding.UTF8;
             string[] boekTitels = new string[3];
             string[] boekAuteurs = new string[3];
             string[] tijdschrijftNamen = new string[2];
             string[] gebruikers = new string[4];
             /*int choiceMat = 0;*/
-        static void Main(string[] args)
-        {
             string input;
             string titel = null;
             string auteur = null;
             bool isBoek = false;
             string naam = null;
             string zoekterm = null;
-            Console.OutputEncoding = Encoding.UTF8;
 
-            Console.WriteLine("BIBLIOTHEEK");
+
+            Console.WriteLine("BIBLIOTHEEK"); //Menu title
 
             while (true)
             {
-                ToonMenu();
+                ShowMenu();
                 input = Console.ReadLine();
 
-
-                switch (input) 
+                if(input == "1")
                 {
-                    case "1":
-                        ToonMaterialen(titel);
-                        break;
-                    case "2":
-                        VoegMateriaalToe(titel, auteur, isBoek);
-                        break;
-                    case "3":
-                        VerwijderMateriaal(titel);
-                        break;
-                    case "4":
-                        ZoekMateriaal(zoekterm);
-                        break;
-                    case "5":
-                        RegistreerGebruiker(naam);
-                        break;
+                    ShowMaterials(bookTitles, bookAuthors, magsNames);
+                    Console.WriteLine("Press any key to return to the main menu.");
+                    Console.ReadKey();
+                    Console.Clear();
                 }
-                Console.Clear();
+                else if (input == "2")
+                {
+                    AddMaterial(title, author);
+                    Console.WriteLine("Press any key to return to the main menu.");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+                else if (input == "3")
+                {
+                    DeleteMaterial(ref bookTitles, ref magsNames, title);
+                    Console.WriteLine("Press any key to return to the main menu.");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+                else if (input == "4")
+                {
+                    SearchMaterial(bookTitles, bookAuthors, magsNames, searchItem);
+                    Console.WriteLine("Press any key to return to the main menu.");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+                else if (input == "5")
+                {
+                    UserRegister(name);
+                    Console.WriteLine("Press any key to return to the main menu.");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+                else
+                {
+                    Console.WriteLine("Not a valid choice");
+                    Console.WriteLine("Press any key to return to the main menu.");
+                    Console.ReadKey();
+                    Console.Clear();
+                }                
             }
-            
+
         }
-        static void ToonMenu()
+        public static void ShowMenu() // Shows the Main Menu
         {
-            Console.WriteLine("1. Materialen tonen" + "\n" + "2. Materiaal toevoegen" + "\n" + "3. Materiaal verwijderen" + "\n" + "4. Materiaal zoeken" + "\n" + "5. Nieuwe gebruiker registreren");
+            Console.WriteLine("1. Show all books and mags");
+            Console.WriteLine("2. Add new material");
+            Console.WriteLine("3. Delete material");
+            Console.WriteLine("4. Search for a book or a mag");
+            Console.WriteLine("5. New user register");
         }
-        static void VoegMateriaalToe(string titel, string auteur, bool isBoek)
+        public static void AddMaterial(string title, string author)//Add material.Both for books and mags
         {
-            int choiceMat = 0;
-            Console.WriteLine("Choose between: 1 => Book or  2 => Revue");
-            choiceMat = Int32.Parse(Console.ReadLine());
+
+            Console.WriteLine("1 - Book  ");
+            Console.WriteLine("2 - Revue  ");
+            int choiceMat = Int32.Parse(Console.ReadLine());
+
+            string[] bookTitles = { "Book1", "Book2" };
+            string[] bookAuthors = { "Author1", "Author2" };
+            string[] magsNames = { "Mag1", "Mag2" };
 
             if (choiceMat == 1)
             {
-                isBoek = true;
-                PopulateArrayBook(titel, auteur);
+                Console.WriteLine("Enter the title: ");
+                title = Console.ReadLine();
+                //Add a new place at the end of the array to fill it:
+                Array.Resize(ref bookTitles, bookTitles.Length + 1);
+                //Puts the new entry in the new place created:
+                bookTitles[bookTitles.Length - 1] = title;
+
+                Console.WriteLine("Enter the author: ");
+                Array.Resize(ref bookAuthors, bookAuthors.Length + 1);
+                author = Console.ReadLine();
+                bookAuthors[bookAuthors.Length - 1] = author;
+
             }
             else if (choiceMat == 2)
             {
-                isBoek = false;
-                PopulateArrayTijdschrijft(titel) ;
+                Console.WriteLine("Enter the title: ");
+                title = Console.ReadLine();
+                Array.Resize(ref magsNames, magsNames.Length + 1);
+                magsNames[magsNames.Length - 1] = title;
             }
-            /*int choiceMat;*/
-            
-        }
-        static void PopulateArrayBook(string titel, string auteur)
-        {
-            /*string auteur;*/
-            string[] boekTitels = new string[3];
-            Console.WriteLine("Enter the title: ");
-            titel = Console.ReadLine();
-            int i;
 
-            for (i = 0; i < boekTitels.Length; i++)
+        }
+
+        public static void ShowMaterials(string[] bookTitles, string[] bookAuthors, string[] magsNames) //Show all books and mags
+        {
+
+            Console.WriteLine("1 - Book");
+            Console.WriteLine("2 - Revue");
+            int choiceMat = Int32.Parse(Console.ReadLine());
+
+            if (choiceMat == 1)
             {
-                boekTitels[i] = titel;
+                for (int i = 0; i < bookTitles.Length; i++)
+                {
+                    if (bookTitles[i] == "9999")//Doesen't show the item already convert to "9999"
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Book id: {i + 1} \n Title: {bookTitles[i]} \n Author: {bookAuthors[i]}");
+                    }
+                }
             }
 
-            string[] boekAuteurs = new string[3];
-            Console.WriteLine("Enter the author: ");
-            auteur = Console.ReadLine();
-            for (i = 0; i < boekAuteurs.Length; i++)
+            if (choiceMat == 2)
             {
-                boekAuteurs[i] = titel;
-                Console.WriteLine($"New entry: {boekTitels[i]} - {boekAuteurs[i]}");
+                for (int i = 0; i < magsNames.Length; i++)
+                {
+                    if (magsNames[i] == "9999")//Doesen't show the item already convert to "9999"
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Mag id: {i + 1} \n Title: {magsNames[i]}");
+                    }
+                }
             }
+
         }
-        static void PopulateArrayTijdschrijft(string titel)
+        static void DeleteMaterial(ref string[] bookTitles, ref string[] magsNames, string title) //Delete
         {
-            string[] tijdschrijftNamen = new string[2];
-            Console.WriteLine("Enter the title: ");
-            titel = Console.ReadLine();
-            for (int i = 0; i < tijdschrijftNamen.Length; i++)
+            Console.WriteLine("What material do you want to delete? : ");
+            Console.WriteLine("1 - Book  ");
+            Console.WriteLine("2 - Revue  ");
+            int choiceMat = Int32.Parse(Console.ReadLine());
+
+            if (choiceMat == 1)
             {
-                tijdschrijftNamen[i] = titel;
+                Console.WriteLine("Enter the title: ");
+                title = Console.ReadLine();
+                // Find the index of the book title:
+                int index = Array.IndexOf(bookTitles, title);
+                if (index >= 0)
+                {
+                    bookTitles[index] = "9999";
+                }
+                else
+                {
+                    Console.WriteLine("Title not found.");
+                }
             }
-        }
-        static void ToonMaterialen(string titel)
-        {
-            string[] boekTitels = new string[3];
-            string[] boekAuteurs = new string[3];
-            int choiceMat = 0;
-            Console.WriteLine("Choose between: 1 => Book or  2 => Revue");
-            choiceMat = Int32.Parse(Console.ReadLine());
-
-            for (int i = 0; i < boekTitels.Length; i++)
+            else if (choiceMat == 2)
             {
-                Console.WriteLine($"Book id: {i} '\n' Title: {boekTitels[i]} '\n' Author: {boekTitels[i]}");
+                Console.WriteLine("Enter the title: ");
+                title = Console.ReadLine();
+                int index = Array.IndexOf(magsNames, title);
+                if (index >= 0)
+                {
+                    magsNames[index] = "9999";
+                }
+                else
+                {
+                    Console.WriteLine("Title not found.");
+                }
             }
         }
-        static void VerwijderMateriaal(string titel)
+        static void SearchMaterial(string[] bookTitles, string[] bookAuthors, string[] magsNames, string searchItem)//Search in the arrays for a search term (both titles or authors)
         {
+            Console.WriteLine("1 - Book");
+            Console.WriteLine("2 - Revue");
+            int choiceMat = Int32.Parse(Console.ReadLine());
+
+            Console.WriteLine("Enter the search term: ");
+            searchItem = Console.ReadLine();
+            if (choiceMat == 1)
+            {
+                if (Array.IndexOf(bookTitles, searchItem) >= 0)
+                {
+                    Console.WriteLine($"'{searchItem}' found in Books Titles.");
+                }
+                else if (Array.IndexOf(bookAuthors, searchItem) >= 0)
+                {
+                    Console.WriteLine($"'{searchItem}' found in Books Authors.");
+                }
+                else
+                {
+                    Console.WriteLine("Search term not found.");
+                }
+            }
+            else if (choiceMat == 2)
+            {
+                if (Array.IndexOf(magsNames, searchItem) >= 0)
+                {
+                    Console.WriteLine($"'{searchItem}' found in Magazines Titles.");
+                }
+                else
+                {
+                    Console.WriteLine("Search term not found.");
+                }
+            }
 
         }
-        static void ZoekMateriaal(string zoekterm)
+        static void UserRegister(string name)//Add a new User Name to the users array
         {
+            Console.WriteLine("Enter your User name");
+            name = Console.ReadLine();
+
+            Array.Resize(ref users, users.Length + 1);
+            users[users.Length - 1] = name;
+            Console.WriteLine($" User {name}. You are succesfully added to our Library!");
 
         }
-        static void RegistreerGebruiker(string naam)
-        {
-
-        }
-        /*Console.WriteLine("Enter the book name");*/
     }
 }
