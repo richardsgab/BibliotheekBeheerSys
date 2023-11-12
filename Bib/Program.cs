@@ -9,19 +9,20 @@ namespace Bib
 {
     internal class Program
     {
-        static string[] bookTitles = { "Book1", "Book2" };
-        static string[] bookAuthors = { "Author1", "Author2" };
-        static string[] magsNames = { "Mag1", "Mag2" };
-        static string[] users = { "User1", "User2" };
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
-
+            string[] boekTitels = new string[3];
+            string[] boekAuteurs = new string[3];
+            string[] tijdschrijftNamen = new string[2];
+            string[] gebruikers = new string[4];
+            /*int choiceMat = 0;*/
             string input;
-            string title = null;
-            string author = null;
-            string searchItem = null;
-            string name = null;
+            string titel = null;
+            string auteur = null;
+            bool isBoek = false;
+            string naam = null;
+            string zoekterm = null;
 
 
             Console.WriteLine("BIBLIOTHEEK"); //Menu title
