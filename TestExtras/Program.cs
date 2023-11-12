@@ -14,7 +14,7 @@ namespace TestExtras
         static string userName;
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter title to lean: ");
+            Console.WriteLine("Enter title to loan: ");
             string matToBorrow = Console.ReadLine();
             
             CheckIsLoaned(matToBorrow);

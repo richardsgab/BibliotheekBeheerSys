@@ -40,7 +40,7 @@ namespace Bib
                 }
                 else if (input == "2")
                 {
-                    AddMaterial(title, author);
+                    AddMaterial(ref title, ref author);
                     Console.WriteLine("Press any key to return to the main menu.");
                     Console.ReadKey();
                     Console.Clear();
@@ -84,7 +84,7 @@ namespace Bib
             Console.WriteLine("4. Search for a book or a mag");
             Console.WriteLine("5. New user register");
         }
-        public static void AddMaterial(string title, string author)//Add material.Both for books and mags
+        public static void AddMaterial(ref string title, ref string author)//Add material.Both for books and mags
         {
 
             Console.WriteLine("1 - Book  ");
